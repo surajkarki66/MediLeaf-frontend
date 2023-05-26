@@ -3,12 +3,13 @@ import * as React from 'react';
 import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Head from 'next/head';
+import Link from 'next/link';
 
 const navigation = [
-  { name: 'Identify', href: '#' },
-  { name: 'Explore', href: '#' },
-  { name: 'Contributions', href: '#' },
-  { name: 'About us', href: '#' },
+  { name: 'Identify', href: '/identification' },
+  { name: 'Explore', href: '/explore' },
+  { name: 'Observations', href: '/observations' },
+  { name: 'Contact us', href: '/contact-us' },
 ];
 
 export default function Header() {
@@ -50,9 +51,9 @@ export default function Header() {
       <div className='px-6 pt-6 lg:px-8'>
         <nav className='flex items-center justify-between' aria-label='Global'>
           <div className='flex lg:flex-1'>
-            <a href='#' className='-m-1.5 p-1.5'>
+            <Link href='/' className='-m-1.5 p-1.5'>
               <h1 className='text-xl font-semibold'>MediLeaf</h1>
-            </a>
+            </Link>
           </div>
           <div className='flex lg:hidden'>
             <button
@@ -66,30 +67,30 @@ export default function Header() {
           </div>
           <div className='hidden lg:flex lg:gap-x-12'>
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className='text-sm font-semibold leading-6 text-gray-900'
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
           <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
-            <a
-              href='#'
+            <Link
+              href='/login'
               className='text-sm font-semibold leading-6 text-gray-900'
             >
               Log in <span aria-hidden='true'>&rarr;</span>
-            </a>
+            </Link>
           </div>
         </nav>
         <Dialog as='div' open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <Dialog.Panel className='fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden'>
             <div className='flex items-center justify-between'>
-              <a href='#' className='-m-1.5 p-1.5'>
-                <h1 className='text-xl font-semibold'>Your Company</h1>
-              </a>
+              <Link href='/' className='-m-1.5 p-1.5'>
+                <h1 className='text-xl font-semibold'>MediLeaf</h1>
+              </Link>
               <button
                 type='button'
                 className='-m-2.5 rounded-md p-2.5 text-gray-700'
@@ -103,22 +104,22 @@ export default function Header() {
               <div className='-my-6 divide-y divide-gray-500/10'>
                 <div className='space-y-2 py-6'>
                   {navigation.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
                       href={item.href}
                       className='-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-400/10'
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
                 <div className='py-6'>
-                  <a
-                    href='#'
+                  <Link
+                    href='/login'
                     className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10'
                   >
                     Log in
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
