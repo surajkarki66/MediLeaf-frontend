@@ -22,7 +22,7 @@ export default function Home() {
             </div>
             <div className='text-center'>
               <h2 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
-                MediLeaf: Plant&apos;s Medicinal Properties Identifier
+                A Plant&apos;s Medicinal Properties Identifier
               </h2>
               <p className='mt-6 text-lg leading-8 text-gray-600'>
                 Coming Soon !
