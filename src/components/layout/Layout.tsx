@@ -5,7 +5,9 @@ import Header from './Header';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className='isolate bg-white'>
-      <Header />
+      <header>
+        <Header />
+      </header>
       <main>{children}</main>
     </div>
   );
