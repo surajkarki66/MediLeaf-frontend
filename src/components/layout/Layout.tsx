@@ -1,7 +1,10 @@
 import * as React from 'react';
 
+import dynamic from 'next/dynamic';
+
 import Header from './Header';
-import Footer from '../footer/Footer';
+
+const Footer = dynamic(() => import('../footer/Footer'));
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
