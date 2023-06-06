@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import dynamic from 'next/dynamic';
 
-import Header from './Header';
+import Header from '../header/Header';
 
 const Footer = dynamic(() => import('../footer/Footer'));
 
