@@ -9,7 +9,7 @@ export default function Home() {
             Give us a star ⭐️
             <a
               href='#'
-              className='font-semibold text-indigo-600'
+              className='font-semibold text-[#1E9C5D]'
               target='_blank'
               rel='noreferrer'
             >
@@ -32,7 +32,7 @@ export default function Home() {
           <div className='mt-10 flex items-center justify-center gap-x-6'>
             <Link
               href='/identification'
-              className='rounded-md bg-[#1E9C5D] px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:bg-green-500'
+              className='rounded-md bg-[#1E9C5D] px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500'
             >
               Get started
             </Link>
