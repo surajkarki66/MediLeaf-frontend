@@ -1,7 +1,7 @@
 import { FC, Fragment, useState } from 'react';
 
 import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon, LanguageIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 const LanguageSwitcher: FC<{ small: boolean }> = ({ small }) => {
   const [lang, setLang] = useState('ENG');
@@ -9,14 +9,19 @@ const LanguageSwitcher: FC<{ small: boolean }> = ({ small }) => {
     <Menu as='div' className='ml-1'>
       <div>
         <Menu.Button
-          className={`flex items-center py-2 px-3 -mx-3 block rounded-lg px-3 text-base font-semibold leading-6 text-gray-900 border border-gray-400 rounded-lg ${
+          className={`flex items-center py-2.5 px-0 -mx-3 block rounded-lg px-3 text-base font-semibold leading-6 text-gray-900 ${
             small ? 'ml-0' : 'ml-4'
           }`}
         >
-          <LanguageIcon className='w-5 h-5 mr-0.5' aria-hidden='true' />
+          {lang === 'ENG' ? (
+            <i className='flag-icon flag-icon-us mr-1'></i>
+          ) : (
+            <i className='flag-icon flag-icon-np'></i>
+          )}
+
           {lang}
           <ChevronDownIcon
-            className='ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100'
+            className='ml-1 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100'
             aria-hidden='true'
           />
         </Menu.Button>
@@ -46,7 +51,8 @@ const LanguageSwitcher: FC<{ small: boolean }> = ({ small }) => {
                     active ? 'bg-[#1E9C5D] text-white' : 'text-gray-900'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
-                  ENG
+                  <i className='flag-icon flag-icon-us'></i>
+                  &nbsp;&nbsp;ENG
                 </button>
               )}
             </Menu.Item>
@@ -60,7 +66,8 @@ const LanguageSwitcher: FC<{ small: boolean }> = ({ small }) => {
                     active ? 'bg-[#1E9C5D] text-white' : 'text-gray-900'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
-                  NEP
+                  <i className='flag-icon flag-icon-np'></i>
+                  &nbsp;&nbsp;NEP
                 </button>
               )}
             </Menu.Item>
