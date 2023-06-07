@@ -1,18 +1,43 @@
 import * as React from 'react';
 
 import { Dialog } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import {
+  Bars3Icon,
+  Bars4Icon,
+  XMarkIcon,
+  MagnifyingGlassIcon,
+  GlobeAltIcon,
+  UserGroupIcon,
+} from '@heroicons/react/24/outline';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import Logo from '@/assets/images/logo.png';
 
+import LanguageSwitcher from '../language_switcher/LanguageSwitcher';
+
 const navigation = [
-  { name: 'Identify', href: '/identification' },
-  { name: 'Explore', href: '/explore' },
-  { name: 'Observations', href: '/observations' },
-  { name: 'Contact us', href: '/contact-us' },
+  {
+    name: <span className='ml-1 text-[0.95rem]'>Identify</span>,
+    icon: <MagnifyingGlassIcon className='w-5 h-5' />,
+    href: '/identification',
+  },
+  {
+    name: <span className='ml-1 text-[0.95rem]'>Explore</span>,
+    icon: <Bars4Icon className='w-5 h-5' />,
+    href: '/explore',
+  },
+  {
+    name: <span className='ml-1 text-[0.95rem]'>Observations</span>,
+    icon: <GlobeAltIcon className='w-5 h-5' />,
+    href: '/observations',
+  },
+  {
+    name: <span className='ml-1 text-[0.95rem]'>Contact us</span>,
+    icon: <UserGroupIcon className='w-5 h-5' />,
+    href: '/contact-us',
+  },
 ];
 
 export default function Header() {
@@ -21,8 +46,15 @@ export default function Header() {
     <>
       <Head>
         <title>MediLeaf</title>
-        <meta name='description' content={`Write description here.`} />
+        <meta
+          name='description'
+          content={`Medileaf is an application whose motive is to help the individual to identify medicinal plant with their properties by just scanning the leaf of any plant which might result creating curiosity about plant that lead to the preservation of the valuable plants as well as source of income.`}
+        />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <link
+          rel='stylesheet'
+          href='https://cdn.jsdelivr.net/npm/flag-icon-css@3.5.0/css/flag-icon.min.css'
+        />
         <link
           rel='apple-touch-icon'
           sizes='180x180'
@@ -103,23 +135,27 @@ export default function Header() {
             </button>
           </div>
           <div className='hidden lg:flex lg:gap-x-12'>
-            {navigation.map((item) => (
+            {navigation.map((item, index) => (
               <Link
-                key={item.name}
+                key={index}
                 href={item.href}
-                className='text-sm font-semibold leading-6 text-gray-900'
+                className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10'
               >
-                {item.name}
+                <div className='flex items-center'>
+                  {item.icon}
+                  {item.name}
+                </div>
               </Link>
             ))}
           </div>
           <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
             <Link
               href='/login'
-              className='text-sm font-semibold leading-6 text-gray-900'
+              className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10 mr-1'
             >
-              Log in <span aria-hidden='true'>&rarr;</span>
+              <span aria-hidden='true'>&rarr;</span> Log in
             </Link>
+            <LanguageSwitcher small={false} />
           </div>
         </nav>
         <Dialog as='div' open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -142,13 +178,16 @@ export default function Header() {
             <div className='mt-6 flow-root'>
               <div className='-my-6 divide-y divide-gray-500/10'>
                 <div className='space-y-2 py-6'>
-                  {navigation.map((item) => (
+                  {navigation.map((item, index) => (
                     <Link
-                      key={item.name}
+                      key={index}
                       href={item.href}
-                      className='-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-400/10'
+                      className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10'
                     >
-                      {item.name}
+                      <div className='flex items-center'>
+                        {item.icon}
+                        {item.name}
+                      </div>
                     </Link>
                   ))}
                 </div>
@@ -157,8 +196,11 @@ export default function Header() {
                     href='/login'
                     className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10'
                   >
-                    Log in
+                    <span aria-hidden='true'>&rarr;</span> Log in
                   </Link>
+                  <div className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900'>
+                    <LanguageSwitcher small={true} />
+                  </div>
                 </div>
               </div>
             </div>
