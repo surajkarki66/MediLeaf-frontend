@@ -77,15 +77,19 @@ export default function Header() {
       </div>
       <div className='px-6 pt-6 lg:px-8'>
         <nav className='flex items-center justify-between' aria-label='Global'>
-          <div className='flex lg:flex-1'>
-            <Link href='/' className='-m-1.5 p-1.5'>
+          <div className='flex lg:flex-1 items-center'>
+            <Link href='/' className='-m-1.5 p-1.5 flex items-center'>
               <Image
                 src={Logo}
                 width={50}
                 height={50}
-                alt='Picture of the author'
+                alt='Medileaf-Logo'
+                quality={100}
+                priority={true}
               />
-              {/* <h1 className='text-xl font-semibold'>MediLeaf</h1> */}
+              <h1 className='text-xl font-semibold ml-0 text-[#1E9C5D]'>
+                MediLeaf
+              </h1>
             </Link>
           </div>
           <div className='flex lg:hidden'>
@@ -122,7 +126,9 @@ export default function Header() {
           <Dialog.Panel className='fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden'>
             <div className='flex items-center justify-between'>
               <Link href='/' className='-m-1.5 p-1.5'>
-                <h1 className='text-xl font-semibold'>MediLeaf</h1>
+                <h1 className='text-xl font-semibold text-[#1E9C5D]'>
+                  MediLeaf
+                </h1>
               </Link>
               <button
                 type='button'
