@@ -11,8 +11,7 @@
       {
         "singleQuote": true
       }
-    ],
-    
+    ]
   },
   "overrides": [
     // Configuration for TypeScript files
@@ -38,7 +37,7 @@
           "error",
           {
             ".ts": "always",
-            ".tsx": "always",
+            ".tsx": "always"
           }
         ],
         "react/destructuring-assignment": "off", // Vscode doesn't support automatically destructuring, it's a pain to add a new variable
