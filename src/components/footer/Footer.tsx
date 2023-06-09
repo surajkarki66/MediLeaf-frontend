@@ -10,5 +10,7 @@ export default function Footer() {
     return null;
   }
 
-  return <footer className='text-center bg-red'>Footer</footer>;
+  return (
+    <footer className='absolute b-0 w-[100%] text-center bg-red'>Footer</footer>
+  );
 }
