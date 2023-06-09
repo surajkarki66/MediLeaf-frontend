@@ -25,7 +25,7 @@ export default function Identification() {
           It is recommended to use images with better resolution and only have
           leaves. (<i>less than 3 MB</i>)
         </p>
-        <ImageUploader />
+        <ImageUploader multiple={false} />
       </div>
       <h1 className='flex flex-row sm:flex-row justify-between items-center mx-[20px] md:mx-[50px] lg:mx-[90px] xl:mx-[110px] 2xl:mx-[340px] my-5'>
         <span className='text-[1.8rem] font-medium mb-2 sm:mb-0 sm:mr-4 '>
