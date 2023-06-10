@@ -14,6 +14,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Logo from '@/assets/images/logo.png';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 
 import LanguageSwitcher from '../language_switcher/LanguageSwitcher';
 
@@ -42,6 +50,8 @@ const navigation = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const { isLoggedIn, data } = useIsLoggedIn();
+
   return (
     <>
       <Head>
@@ -77,6 +87,13 @@ export default function Header() {
           rel='mask-icon'
           href='./favicon/safari-pinned-tab.svg'
           color='#5bbad5'
+        />
+        <link
+          rel='stylesheet'
+          href='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css'
+          integrity='sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ=='
+          crossOrigin='anonymous'
+          referrerPolicy='no-referrer'
         />
         <meta name='msapplication-TileColor' content='#da532c' />
         <meta name='theme-color' content='#ffffff' />
@@ -149,12 +166,38 @@ export default function Header() {
             ))}
           </div>
           <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
-            <Link
-              href='/login'
-              className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10 mr-1'
-            >
-              <span aria-hidden='true'>&rarr;</span> Log in
-            </Link>
+            {!isLoggedIn ? (
+              <Link
+                href='/login'
+                className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10 mr-1'
+              >
+                <span aria-hidden='true'>&rarr;</span> Log in
+              </Link>
+            ) : (
+              <TooltipProvider delayDuration={50}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link href='/profile'>
+                      <Avatar>
+                        <AvatarImage
+                          src={
+                            data?.avatar
+                              ? data?.avatar
+                              : 'https://github.com/shadcn.png'
+                          }
+                        />
+                        <AvatarFallback>
+                          {data?.fullName.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{data?.fullName}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
             <LanguageSwitcher small={false} />
           </div>
         </nav>
@@ -192,13 +235,39 @@ export default function Header() {
                   ))}
                 </div>
                 <div className='py-6'>
-                  <Link
-                    href='/login'
-                    className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10'
-                  >
-                    <span aria-hidden='true'>&rarr;</span> Log in
-                  </Link>
-                  <div className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900'>
+                  {!isLoggedIn ? (
+                    <Link
+                      href='/login'
+                      className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10 mr-1'
+                    >
+                      <span aria-hidden='true'>&rarr;</span> Log in
+                    </Link>
+                  ) : (
+                    <TooltipProvider delayDuration={50}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Link href='/profile'>
+                            <Avatar>
+                              <AvatarImage
+                                src={
+                                  data?.avatar
+                                    ? data?.avatar
+                                    : 'https://github.com/shadcn.png'
+                                }
+                              />
+                              <AvatarFallback>
+                                {data?.fullName.charAt(0)}
+                              </AvatarFallback>
+                            </Avatar>
+                          </Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{data?.fullName}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  )}
+                  <div className='-mx-6 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900'>
                     <LanguageSwitcher small={true} />
                   </div>
                 </div>

@@ -39,6 +39,9 @@
       "@/styles/*": ["./src/styles/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/constant/*": ["./src/constant/*"],
+      "@/schemas/*": ["./src/schemas/*"],
+      "@/context/*": ["./src/context/*"],
+      "@/hooks/*": ["./src/hooks/*"],
 
       "~/*": ["./public/*"]
     },
