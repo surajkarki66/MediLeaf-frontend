@@ -1,0 +1,4 @@
+export const queries = {
+  FETCH_USER: 'FETCH_USER',
+  FETCH_PREDICTION_PLANTS: 'FETCH_PREDICTION_PLANTS',
+};

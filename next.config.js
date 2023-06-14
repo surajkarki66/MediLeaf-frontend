@@ -8,4 +8,7 @@ module.exports = withBundleAnalyzer({
   trailingSlash: true,
   basePath: '',
   reactStrictMode: true,
+  images: {
+    domains: ['res.cloudinary.com'],
+  },
 });

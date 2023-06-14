@@ -2,14 +2,14 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className='w-full flex px-6 lg:px-8'>
+    <div className='w-full flex px-6 lg:px-7'>
       <div className='mx-auto max-w-4xl py-32'>
         <div className='hidden sm:mb-8 sm:flex sm:justify-center'>
           <div className='relative rounded-full bg-white bg-opacity-70 py-1 px-3 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20'>
             Give us a star ⭐️
             <a
               href='#'
-              className='font-semibold text-indigo-600'
+              className='font-semibold text-[#1E9C5D]'
               target='_blank'
               rel='noreferrer'
             >
@@ -32,7 +32,7 @@ export default function Home() {
           <div className='mt-10 flex items-center justify-center gap-x-6'>
             <Link
               href='/identification'
-              className='rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+              className='rounded-md bg-[#1E9C5D] px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500'
             >
               Get started
             </Link>
