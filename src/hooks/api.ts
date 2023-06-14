@@ -85,3 +85,10 @@ export const useFetchLogInStatus = () =>
       withCredentials: true,
     })
   );
+
+// Plants
+export const predict = async (payload: any) =>
+  await postApi('/predict/', payload, { withCredentials: true }, true);
+
+export const getPredictionPlants = async (queryString?: any) =>
+  await getApi(`/plants/${queryString}`, { withCredentials: true });

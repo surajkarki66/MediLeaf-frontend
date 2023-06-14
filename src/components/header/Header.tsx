@@ -6,8 +6,8 @@ import {
   Bars4Icon,
   XMarkIcon,
   MagnifyingGlassIcon,
-  GlobeAltIcon,
   UserGroupIcon,
+  IdentificationIcon,
 } from '@heroicons/react/24/outline';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -37,9 +37,9 @@ const navigation = [
     href: '/explore',
   },
   {
-    name: <span className='ml-1 text-[0.95rem]'>Observations</span>,
-    icon: <GlobeAltIcon className='w-5 h-5' />,
-    href: '/observations',
+    name: <span className='ml-1 text-[0.95rem]'>About us</span>,
+    icon: <IdentificationIcon className='w-5 h-5' />,
+    href: '/about-us',
   },
   {
     name: <span className='ml-1 text-[0.95rem]'>Contact us</span>,

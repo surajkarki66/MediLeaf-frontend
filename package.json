@@ -1,5 +1,5 @@
 {
-  "name": "medileaf-frontend",
+  "name": "medileaf_frontend",
   "version": "0.0.1",
   "scripts": {
     "dev": "next dev",

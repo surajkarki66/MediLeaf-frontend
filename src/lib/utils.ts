@@ -3,7 +3,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { get } from 'lodash';
 import { twMerge } from 'tailwind-merge';
 
-import { axiosBaseUrl } from '@/constant/env';
+import { axiosKBBaseUrl } from '@/constant/env';
 import getFormData from '@/hooks/getFormData';
 
 import { getFromLocalStorage } from './helper';
@@ -13,7 +13,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 const axiosInstance = axios.create({
-  baseURL: axiosBaseUrl,
+  baseURL: axiosKBBaseUrl,
 });
 
 export const getApi = async (url: string, config?: any) => {
@@ -54,6 +54,8 @@ export const postApi = async (
   } else {
     formData = payload;
   }
+  console.log(payload);
+  console.log(formData);
 
   let headers;
 

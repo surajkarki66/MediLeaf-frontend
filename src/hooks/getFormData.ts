@@ -1,9 +1,11 @@
-export default function getFormData(payload: Record<string, any>): FormData {
+const getFormData = (payload: any): FormData => {
   const data = new FormData();
 
-  Object.entries(payload).forEach(([key, value]) => {
-    data.append(key, value);
-  });
-
+  // eslint-disable-next-line no-restricted-syntax, guard-for-in
+  for (const key in payload) {
+    data.append(key, payload[key]);
+  }
   return data;
-}
+};
+
+export default getFormData;

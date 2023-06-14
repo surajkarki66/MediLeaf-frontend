@@ -10,10 +10,19 @@ import { useToast } from '@/components/ui/use-toast';
 
 type Props = {
   multiple: boolean;
+  selectedImages: Blob[];
+  setSelectedImages: React.Dispatch<React.SetStateAction<Blob[]>>;
+  getPrediction: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => Promise<void>;
 };
 
-const ImageUploader: React.FC<Props> = ({ multiple }) => {
-  const [selectedImages, setSelectedImages] = useState<Blob[]>([]);
+const ImageUploader: React.FC<Props> = ({
+  multiple,
+  selectedImages,
+  setSelectedImages,
+  getPrediction,
+}) => {
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
   const { toast } = useToast();
@@ -58,22 +67,6 @@ const ImageUploader: React.FC<Props> = ({ multiple }) => {
     setSelectedImages(updatedSelectedImages);
   };
 
-  const sendData = () => {
-    if (selectedImages.length > 0) {
-      const formData = new FormData();
-      selectedImages.forEach((image) => {
-        formData.append('image', image, image.name);
-      });
-    } else {
-      toast({
-        title: `Oops! Image not found`,
-        description: `Please first upload an image to get the result.`,
-        variant: 'destructive',
-        duration: 4000,
-      });
-    }
-  };
-
   const SingleImageView = () => {
     return (
       <div className='mt-14 flex flex-col justify-center items-center'>
@@ -105,7 +98,7 @@ const ImageUploader: React.FC<Props> = ({ multiple }) => {
           </div>
         )}
         <button
-          onClick={sendData}
+          onClick={(e) => getPrediction(e)}
           className='bg-[#1E9C5D] px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500 mt-5 mb-3'
         >
           <MagnifyingGlassCircleIcon className='w-7 h-7' />{' '}
@@ -114,8 +107,8 @@ const ImageUploader: React.FC<Props> = ({ multiple }) => {
     );
   };
   return (
-    <div className='pt-10 px-5'>
-      <input {...getInputProps()} />
+    <form className='pt-10 px-5'>
+      <input type='file' {...getInputProps()} />
       <div
         {...getRootProps({ className: 'dropzone' })}
         className='border-2 border-dashed border-gray-400 rounded-lg p-5 text-center cursor-pointer '
@@ -128,7 +121,7 @@ const ImageUploader: React.FC<Props> = ({ multiple }) => {
         </label>
       </div>
       {multiple ? null : <SingleImageView />}
-    </div>
+    </form>
   );
 };
 
