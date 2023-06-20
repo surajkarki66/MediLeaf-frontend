@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useFormik } from 'formik';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useMutation } from 'react-query';
 
+import { LoginType } from '@/@types';
 import AuthLayout from '@/components/layout/AuthLayout';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
@@ -14,14 +14,13 @@ import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 import { loginSchema } from '@/schemas/index';
 
 export default function Login() {
-  const initialValues = {
+  const initialValues: LoginType = {
     email: '',
     password: '',
   };
   const { toast } = useToast();
   const router = useRouter();
-
-  const { mutate, isLoading } = useMutation(login);
+  const [loading, setLoading] = useState(false);
 
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
@@ -30,34 +29,36 @@ export default function Login() {
       validateOnChange: true,
       validateOnBlur: false,
       onSubmit: (v, action) => {
-        mutate(v, {
-          onSuccess: (res) => {
+        setLoading(true);
+        login(v)
+          .then((res) => {
+            setLoading(false);
+            action.setSubmitting(false);
+            action.resetForm();
+            router.push('/');
             toast({
               title: `Successfully done!`,
               description: `${res.message}`,
               variant: 'default',
               duration: 3000,
             });
+          })
+          .catch((error) => {
+            setLoading(false);
             action.setSubmitting(false);
-            action.resetForm();
-            router.push('/');
-          },
-          onError: (error: any) => {
             toast({
               title: `Something went wrong!`,
               description: `Error: ${error[0]}`,
               variant: 'destructive',
               duration: 3000,
             });
-            action.setSubmitting(false);
-          },
-        });
+          });
       },
     });
 
   const { isLoggedIn } = useIsLoggedIn();
   if (isLoggedIn) {
-    return router.push('/');
+    // return router.push('/');
   }
 
   return (
@@ -69,9 +70,10 @@ export default function Login() {
         }}
       >
         <div className='mt-5'>
+          <label htmlFor='email'>Email</label>
           <input
             type='email'
-            placeholder='Email'
+            placeholder='Enter an email address'
             className='border border-gray-400 py-1 px-2 w-full'
             value={values.email}
             onChange={handleChange}
@@ -82,10 +84,11 @@ export default function Login() {
             <p className='text-1.4 text-red-600'>{errors.email}</p>
           ) : null}
         </div>
-        <div className='mt-5'>
+        <div className='mt-2'>
+          <label htmlFor='password'>Password</label>
           <input
             type='password'
-            placeholder='Password'
+            placeholder='Enter a password'
             className='border border-gray-400 py-1 px-2 w-full'
             value={values.password}
             onChange={handleChange}
@@ -100,11 +103,11 @@ export default function Login() {
         <div className='mt-5 mb-5'>
           <Button
             variant='default'
-            disabled={isLoading}
-            className='w-full bg-white border border-[#1E9C5D] py-2 text-center text-md text-[#1E9C5D] hover:bg-white'
+            disabled={loading}
+            className='w-full bg-white border border-[#1E9C5D] py-2 text-center text-md text-[#1E9C5D] hover:text-white hover:bg-[#1E9C5D]'
             type='submit'
           >
-            {isLoading ? (
+            {loading ? (
               <>
                 <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                 Please wait
@@ -119,14 +122,14 @@ export default function Login() {
             href='/register'
             className='text-[#1E9C5D] font-semibold font-semibold flex-grow '
           >
-            Create an account
+            Sign up
           </Link>
 
           <Link
             href='/forgot-password'
             className='text-[#1E9C5D] font-semibold font-semibold '
           >
-            Forgot Password ?
+            Forgot Password?
           </Link>
         </div>
       </form>
