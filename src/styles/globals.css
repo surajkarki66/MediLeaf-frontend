@@ -76,6 +76,17 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
   }
+  .country-dropdown {
+    border: 1px solid rgba(156, 163, 175);
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    height: 34px;
+    width: 100%;
+    background-color: white;
+  }
+  
 }
