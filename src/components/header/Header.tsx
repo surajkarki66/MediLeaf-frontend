@@ -21,7 +21,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import useIsLoggedIn from '@/hooks/useIsLoggedIn';
+import { AuthContext } from '@/context/AuthContext';
 
 import LanguageSwitcher from '../language_switcher/LanguageSwitcher';
 
@@ -50,7 +50,7 @@ const navigation = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-  const { isLoggedIn, data } = useIsLoggedIn();
+  const { loginStatus, loading } = React.useContext(AuthContext);
 
   return (
     <>
@@ -166,12 +166,16 @@ export default function Header() {
             ))}
           </div>
           <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
-            {!isLoggedIn ? (
+            {!loginStatus?.isLoggedIn ? (
               <Link
-                href='/login'
+                href={loading ? '#' : '/login'}
                 className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10 mr-1'
               >
-                <span aria-hidden='true'>&rarr;</span> Log in
+                {loading ? (
+                  <span aria-hidden='true'>Loading...</span>
+                ) : (
+                  <span aria-hidden='true'>Log in </span>
+                )}
               </Link>
             ) : (
               <TooltipProvider delayDuration={50}>
@@ -181,19 +185,19 @@ export default function Header() {
                       <Avatar>
                         <AvatarImage
                           src={
-                            data?.avatar
-                              ? data?.avatar
+                            loginStatus?.data?.avatar
+                              ? loginStatus?.data?.avatar
                               : 'https://github.com/shadcn.png'
                           }
                         />
                         <AvatarFallback>
-                          {data?.fullName.charAt(0)}
+                          {loginStatus?.data?.fullName.charAt(0)}
                         </AvatarFallback>
                       </Avatar>
                     </Link>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>{data?.fullName}</p>
+                    <p>{loginStatus?.data?.fullName}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -235,12 +239,16 @@ export default function Header() {
                   ))}
                 </div>
                 <div className='py-6'>
-                  {!isLoggedIn ? (
+                  {!loginStatus?.isLoggedIn ? (
                     <Link
-                      href='/login'
+                      href={loading ? '#' : '/login'}
                       className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10 mr-1'
                     >
-                      <span aria-hidden='true'>&rarr;</span> Log in
+                      {loading ? (
+                        <span aria-hidden='true'>Loading...</span>
+                      ) : (
+                        <span aria-hidden='true'>Log in </span>
+                      )}
                     </Link>
                   ) : (
                     <TooltipProvider delayDuration={50}>
@@ -250,19 +258,19 @@ export default function Header() {
                             <Avatar>
                               <AvatarImage
                                 src={
-                                  data?.avatar
-                                    ? data?.avatar
+                                  loginStatus?.data?.avatar
+                                    ? loginStatus?.data?.avatar
                                     : 'https://github.com/shadcn.png'
                                 }
                               />
                               <AvatarFallback>
-                                {data?.fullName.charAt(0)}
+                                {loginStatus?.data?.fullName.charAt(0)}
                               </AvatarFallback>
                             </Avatar>
                           </Link>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p>{data?.fullName}</p>
+                          <p>{loginStatus?.data?.fullName}</p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
