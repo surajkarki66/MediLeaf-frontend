@@ -98,6 +98,7 @@ const ImageUploader: React.FC<Props> = ({
           </div>
         )}
         <button
+          type='button'
           onClick={(e) => getPrediction(e)}
           className='bg-[#1E9C5D] px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500 mt-5 mb-3'
         >
@@ -107,7 +108,7 @@ const ImageUploader: React.FC<Props> = ({
     );
   };
   return (
-    <form className='pt-10 px-5'>
+    <div className='pt-10 px-5'>
       <input type='file' {...getInputProps()} />
       <div
         {...getRootProps({ className: 'dropzone' })}
@@ -121,7 +122,7 @@ const ImageUploader: React.FC<Props> = ({
         </label>
       </div>
       {multiple ? null : <SingleImageView />}
-    </form>
+    </div>
   );
 };
 
