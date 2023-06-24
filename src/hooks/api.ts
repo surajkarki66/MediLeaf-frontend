@@ -1,6 +1,3 @@
-import { useQuery } from 'react-query';
-
-import { queries } from '@/lib/queries';
 import { getApi, patchApi, postApi } from '@/lib/utils';
 
 // ACCOUNTS
@@ -79,12 +76,11 @@ export const resendEmailVerification = async (payload: any) =>
     false
   );
 
-export const useFetchLogInStatus = () =>
-  useQuery([queries.FETCH_USER], () =>
-    getApi('/me/', {
-      withCredentials: true,
-    })
-  );
+export const getLoginStatus = async () => {
+  return await getApi('/me/', {
+    withCredentials: true,
+  });
+};
 
 // Plants
 export const predict = async (payload: any) =>
