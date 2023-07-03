@@ -14,55 +14,67 @@ export default function Identification() {
   const [mappedSpecies, setMappedSpecies] = useState<any[]>([]);
   const [selectedImages, setSelectedImages] = useState<Blob[]>([]);
   const { toast } = useToast();
-
-  const getPrediction = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const getPrediction = () => {
     setLoading(true);
-    e.preventDefault();
     if (selectedImages.length > 0) {
-      try {
-        const data = await predict({
-          image_file: selectedImages[0],
+      predict({
+        image_file: selectedImages[0],
+      })
+        .then((data) => {
+          const queryStr = data
+            .map((item: any) => {
+              const [genus, species] = item.scientific_name.split(' ', 2);
+              if (species) {
+                return `genus=${genus}&species=${species}`;
+              }
+              return `genus=${genus}`;
+            })
+            .join('&');
+          getPredictionPlants(`?${queryStr}`)
+            .then((res) => {
+              const { results } = res;
+              const r = results.map((result: any) => {
+                let scientificName = `${result.genus}`;
+                if (result.species) {
+                  scientificName = `${result.genus} ${result.species}`;
+                }
+
+                const matchingData = data.find(
+                  (item: any) => item.scientific_name === scientificName
+                );
+
+                if (matchingData) {
+                  return { ...result, probability: matchingData.probability };
+                }
+                return result;
+              });
+              const sortedResults = r
+                .slice()
+                .sort(
+                  (a: { probability: number }, b: { probability: number }) =>
+                    b.probability - a.probability
+                );
+
+              setMappedSpecies(sortedResults);
+              setLoading(false);
+            })
+            .catch((_error) => {
+              setLoading(false);
+              toast({
+                title: `Oops! Something went wrong`,
+                variant: 'destructive',
+                duration: 4000,
+              });
+            });
+        })
+        .catch((_error) => {
+          setLoading(false);
+          toast({
+            title: `Oops! Something went wrong`,
+            variant: 'destructive',
+            duration: 4000,
+          });
         });
-        const queryStr = data
-          .map((item: any) => {
-            const [genus, species] = item.scientific_name.split(' ', 2);
-            if (species) {
-              return `genus=${genus}&species=${species}`;
-            }
-            return `genus=${genus}`;
-          })
-          .join('&');
-
-        const { results } = await getPredictionPlants(`?${queryStr}`);
-        const r = results.map((result: any) => {
-          let scientificName = `${result.genus}`;
-          if (result.species) {
-            scientificName = `${result.genus} ${result.species}`;
-          }
-
-          const matchingData = data.find(
-            (item: any) => item.scientific_name === scientificName
-          );
-
-          if (matchingData) {
-            return { ...result, probability: matchingData.probability };
-          }
-          return result;
-        });
-        const sortedResults = r
-          .slice()
-          .sort(
-            (a: { probability: number }, b: { probability: number }) =>
-              b.probability - a.probability
-          );
-
-        setMappedSpecies(sortedResults);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
     } else {
       setLoading(false);
       toast({

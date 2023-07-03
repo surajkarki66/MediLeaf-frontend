@@ -3,7 +3,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { get } from 'lodash';
 import { twMerge } from 'tailwind-merge';
 
-import { axiosKBBaseUrl } from '@/constant/env';
+import { axiosKBBaseUrl, axiosAIBaseUrl } from '@/constant/env';
 import getFormData from '@/hooks/getFormData';
 
 import { getFromLocalStorage } from './helper';
@@ -12,8 +12,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const axiosInstance = axios.create({
+const axiosKbInstance = axios.create({
   baseURL: axiosKBBaseUrl,
+});
+
+const axiosAiInstance = axios.create({
+  baseURL: axiosAIBaseUrl,
 });
 
 export const getApi = async (url: string, config?: any) => {
@@ -24,7 +28,7 @@ export const getApi = async (url: string, config?: any) => {
 
   const { signal } = controller;
   try {
-    const response = await axiosInstance.get(url, {
+    const response = await axiosKbInstance.get(url, {
       signal,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -45,7 +49,8 @@ export const postApi = async (
   url: string,
   payload?: any,
   config?: any,
-  isFormData: boolean = true
+  isFormData: boolean = true,
+  isAi: boolean = false
 ) => {
   let formData;
 
@@ -54,8 +59,6 @@ export const postApi = async (
   } else {
     formData = payload;
   }
-  console.log(payload);
-  console.log(formData);
 
   let headers;
 
@@ -69,10 +72,15 @@ export const postApi = async (
     headers = { ...headers, 'X-CSRFToken': csrf };
   }
   try {
-    const response = await axiosInstance.post(url, formData, {
-      headers,
-      ...config,
-    });
+    const response = !isAi
+      ? await axiosKbInstance.post(url, formData, {
+          headers,
+          ...config,
+        })
+      : await axiosAiInstance.post(url, formData, {
+          headers,
+          ...config,
+        });
     const data = get(response, 'data');
     return data;
   } catch (error) {
@@ -105,7 +113,7 @@ export const patchApi = async (url: string, payload?: any, config?: any) => {
   const formData = getFormData(payload);
   try {
     const csrf = getFromLocalStorage('csrfToken');
-    const response = await axiosInstance.patch(url, formData, {
+    const response = await axiosKbInstance.patch(url, formData, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'X-CSRFToken': csrf,
@@ -128,7 +136,7 @@ export const patchApi = async (url: string, payload?: any, config?: any) => {
 };
 export const deleteApi = async (url: string, config?: any) => {
   try {
-    const response = await axiosInstance.delete(url, {
+    const response = await axiosKbInstance.delete(url, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },

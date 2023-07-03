@@ -84,7 +84,7 @@ export const getLoginStatus = async () => {
 
 // Plants
 export const predict = async (payload: any) =>
-  await postApi('/predict/', payload, { withCredentials: true }, true);
+  await postApi('/classify/', payload, { withCredentials: true }, true, true);
 
 export const getPredictionPlants = async (queryString?: any) =>
   await getApi(`/plants/${queryString}`, { withCredentials: true });

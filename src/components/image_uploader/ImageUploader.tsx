@@ -6,15 +6,14 @@ import Image from 'next/image';
 import { useDropzone } from 'react-dropzone';
 
 import Blank from '@/assets/images/blank.png';
+import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 
 type Props = {
   multiple: boolean;
   selectedImages: Blob[];
   setSelectedImages: React.Dispatch<React.SetStateAction<Blob[]>>;
-  getPrediction: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => Promise<void>;
+  getPrediction: () => void;
 };
 
 const ImageUploader: React.FC<Props> = ({
@@ -80,12 +79,13 @@ const ImageUploader: React.FC<Props> = ({
                   className='w-[348px] h-[270px] rounded-lg'
                 />
               </div>
-              <button
+              <Button
+                variant='link'
                 onClick={() => handleImagePreviewRemove(index)}
                 className='mt-0 text-red-600'
               >
                 Remove
-              </button>
+              </Button>
             </>
           ))
         ) : (
@@ -97,13 +97,13 @@ const ImageUploader: React.FC<Props> = ({
             />
           </div>
         )}
-        <button
+        <Button
           type='button'
-          onClick={(e) => getPrediction(e)}
           className='bg-[#1E9C5D] px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500 mt-5 mb-3'
+          onClick={getPrediction}
         >
           <MagnifyingGlassCircleIcon className='w-7 h-7' />{' '}
-        </button>
+        </Button>
       </div>
     );
   };
