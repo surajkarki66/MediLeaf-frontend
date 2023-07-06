@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/tooltip';
 
 type PlantCardProps = {
+  id: number;
   scientificName: string;
   commonNames: string[];
   familyName: string;
@@ -20,6 +21,7 @@ type PlantCardProps = {
 };
 
 const PlantCard: React.FC<PlantCardProps> = ({
+  id,
   scientificName,
   commonNames,
   familyName,
@@ -29,7 +31,7 @@ const PlantCard: React.FC<PlantCardProps> = ({
   return (
     <div className='bg-white shadow-md rounded-lg px-6 '>
       <div className='pt-4 flex flex-col'>
-        <Link href='#'>
+        <Link href={`/plants/${id}`}>
           <h3 className='text-lg font-semibold italic text-[#1E9C5D] hover:underline'>
             {scientificName}
           </h3>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { MagnifyingGlassCircleIcon } from '@heroicons/react/24/outline';
+import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useDropzone } from 'react-dropzone';
@@ -11,6 +12,7 @@ import { useToast } from '@/components/ui/use-toast';
 
 type Props = {
   multiple: boolean;
+  loading: boolean;
   selectedImages: Blob[];
   setSelectedImages: React.Dispatch<React.SetStateAction<Blob[]>>;
   getPrediction: () => void;
@@ -21,6 +23,7 @@ const ImageUploader: React.FC<Props> = ({
   selectedImages,
   setSelectedImages,
   getPrediction,
+  loading,
 }) => {
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
@@ -98,11 +101,18 @@ const ImageUploader: React.FC<Props> = ({
           </div>
         )}
         <Button
+          disabled={loading}
           type='button'
           className='bg-[#1E9C5D] px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500 mt-5 mb-3'
           onClick={getPrediction}
         >
-          <MagnifyingGlassCircleIcon className='w-7 h-7' />{' '}
+          {loading ? (
+            <>
+              <Loader2 className='mr-0 h-7 w-7 animate-spin' />
+            </>
+          ) : (
+            <MagnifyingGlassCircleIcon className='w-7 h-7' />
+          )}
         </Button>
       </div>
     );

@@ -88,3 +88,14 @@ export const predict = async (payload: any) =>
 
 export const getPredictionPlants = async (queryString?: any) =>
   await getApi(`/plants/${queryString}`, { withCredentials: true });
+
+export const getPlants = async (params: any, queryString?: any) =>
+  await getApi(
+    `/plants/?limit=${params.limit}&offset=${params.offset}${queryString}`,
+    {
+      withCredentials: true,
+    }
+  );
+
+export const getPlantDetails = async (plantId?: number) =>
+  await getApi(`/plants/${plantId}/`, { withCredentials: true });

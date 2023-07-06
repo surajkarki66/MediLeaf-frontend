@@ -5,7 +5,6 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 import ImageUploader from '@/components/image_uploader/ImageUploader';
 import PlantCard from '@/components/plant/PlantCard';
-import Loading from '@/components/ui/loading';
 import { useToast } from '@/components/ui/use-toast';
 import { predict, getPredictionPlants } from '@/hooks/api';
 
@@ -90,11 +89,7 @@ export default function Identification() {
     return (
       // eslint-disable-next-line react/jsx-no-comment-textnodes
       <>
-        {loading ? (
-          <div className='flex justify-center items-center'>
-            <Loading />
-          </div>
-        ) : mappedSpecies?.length > 0 ? (
+        {loading ? null : mappedSpecies?.length > 0 ? (
           <h1 className='flex flex-row sm:flex-row justify-between items-center mx-[20px] md:mx-[50px] lg:mx-[90px] xl:mx-[110px] 2xl:mx-[340px] my-5'>
             <span className='text-[1.8rem] font-medium mb-2 sm:mb-0 sm:mr-4 '>
               Results <ChevronDownIcon className='w-7 h-7 inline' />
@@ -106,6 +101,7 @@ export default function Identification() {
             return (
               <React.Fragment key={index}>
                 <PlantCard
+                  id={plant.id}
                   scientificName={`${plant.genus} ${
                     plant.species ? plant.species : ''
                   }`}
@@ -141,6 +137,7 @@ export default function Identification() {
           leaves. (<i>less than 3 MB</i>)
         </p>
         <ImageUploader
+          loading={loading}
           multiple={false}
           getPrediction={getPrediction}
           selectedImages={selectedImages}
