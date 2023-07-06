@@ -1,7 +1,7 @@
 import { FC, Fragment, useState } from 'react';
 
 import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, LanguageIcon } from '@heroicons/react/24/outline';
 
 const LanguageSwitcher: FC<{ small: boolean }> = ({ small }) => {
   const [lang, setLang] = useState('ENG');
@@ -13,12 +13,7 @@ const LanguageSwitcher: FC<{ small: boolean }> = ({ small }) => {
             small ? 'ml-0' : 'ml-4'
           }`}
         >
-          {lang === 'ENG' ? (
-            <i className='flag-icon flag-icon-us mr-1'></i>
-          ) : (
-            <i className='flag-icon flag-icon-np'></i>
-          )}
-
+          <LanguageIcon className='h-5 w-5' />
           {lang}
           <ChevronDownIcon
             className='ml-1 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100'

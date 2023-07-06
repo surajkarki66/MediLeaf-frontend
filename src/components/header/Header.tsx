@@ -9,6 +9,7 @@ import {
   UserGroupIcon,
   IdentificationIcon,
 } from '@heroicons/react/24/outline';
+import { Loader2 } from 'lucide-react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -172,7 +173,7 @@ export default function Header() {
                 className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10 mr-1'
               >
                 {loading ? (
-                  <span aria-hidden='true'>Loading...</span>
+                  <Loader2 className='mr-0 h-6 w-6 animate-spin' />
                 ) : (
                   <span aria-hidden='true'>Log in </span>
                 )}
